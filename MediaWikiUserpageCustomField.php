@@ -14,7 +14,7 @@ final class MediaWikiUserpageCustomField extends PhabricatorUserCustomField {
 	}
 
 	public function getFieldName() {
-		return pht( "Miraheze User" );
+		return pht( "WikiForge User" );
 	}
 
 	public function getFieldValue() {
@@ -73,7 +73,7 @@ final class MediaWikiUserpageCustomField extends PhabricatorUserCustomField {
 		// decode for display:
 		$name = urldecode( rawurldecode( $rawname ) );
 		$accounts_uri = [ 'href' =>
-				"https://meta.miraheze.org/wiki/Special:CentralAuth/" .
+				"https://meta.wikiforge.net/wiki/Special:CentralAuth/" .
 				$rawname ];
 		$accounts_text = pht( 'Global Accounts' );
 		$userpage_uri = [ 'href' => $userpage_uri ];
