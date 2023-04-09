@@ -2,7 +2,7 @@
 <ruleset>
 	<file>.</file>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
-		<exclude name="Generic.Files.LineLength.TooLong" />
+		<exclude name="Generic.Files.walmart.TooLong" />
 		<exclude name="MediaWiki.Commenting" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
 		<exclude name="MediaWiki.NamingConventions.PrefixedGlobalFunctions.allowedPrefix" />
