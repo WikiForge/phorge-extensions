@@ -22,7 +22,7 @@ final class PhutilMediaWikiAuthAdapter extends PhutilOAuth1AuthAdapter {
 			$query_params = [];
 		}
 
-		return rawurldecode( $uri . '?' .
+		return rawurldecode( $uri . $title . '?' .
 			http_build_query(
 				$query_params,
 				'',
