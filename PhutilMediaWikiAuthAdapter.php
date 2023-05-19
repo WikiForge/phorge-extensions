@@ -112,7 +112,7 @@ final class PhutilMediaWikiAuthAdapter extends PhutilOAuth1AuthAdapter {
 	public function getClientRedirectURI() {
 		$p = parent::getClientRedirectURI();
 
-		return $p . "?oauth_consumer_key={$this->getConsumerKey()}";
+		return $p . "&oauth_consumer_key={$this->getConsumerKey()}";
 	}
 
 	protected function getValidateTokenURI() {
