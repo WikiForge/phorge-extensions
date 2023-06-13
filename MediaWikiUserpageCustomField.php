@@ -2,19 +2,17 @@
 
 // Source: https://raw.githubusercontent.com/wikimedia/phabricator-extensions/wmf/stable/src/customfields/MediaWikiUserpageCustomField.php
 
-final class MediaWikiUserpageCustomField extends PhabricatorUserCustomField {
+abstract class MediaWikiUserPageCustomField extends PhabricatorUserCustomField {
 	protected $externalAccount;
+
+	abstract protected function getCentralAuthUrl() {}
+
+	abstract protected function getFieldKey() {}
+
+	abstract protected function getFieldName() {}
 
 	public function shouldUseStorage() {
 		return false;
-	}
-
-	public function getFieldKey() {
-		return 'mediawiki:externalaccount';
-	}
-
-	public function getFieldName() {
-		return pht( "WikiForge User" );
 	}
 
 	public function getFieldValue() {
@@ -39,10 +37,11 @@ final class MediaWikiUserpageCustomField extends PhabricatorUserCustomField {
 	protected function getExternalAccount() {
 		if ( !$this->externalAccount ) {
 			$user = $this->getObject();
+			$accountType = substr( $this->getFieldKey(), 0, strpos( $this->getFieldKey(), ':' ) );
 			$this->externalAccount = id( new PhabricatorExternalAccount() )->loadOneWhere(
 				'userPHID = %s AND accountType = %s',
 				$user->getPHID(),
-				'mediawiki'
+				$accountType
 			);
 		}
 
@@ -73,7 +72,7 @@ final class MediaWikiUserpageCustomField extends PhabricatorUserCustomField {
 		// decode for display:
 		$name = urldecode( rawurldecode( $rawname ) );
 		$accounts_uri = [ 'href' =>
-				"https://meta.wikiforge.net/wiki/Special:CentralAuth/" .
+				$this->getCentralAuthUrl() .
 				$rawname ];
 		$accounts_text = pht( 'Global Accounts' );
 		$userpage_uri = [ 'href' => $userpage_uri ];
