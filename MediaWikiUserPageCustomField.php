@@ -5,11 +5,11 @@
 abstract class MediaWikiUserPageCustomField extends PhabricatorUserCustomField {
 	protected $externalAccount;
 
-	abstract protected function getCentralAuthUrl() {}
+	abstract protected function getCentralAuthUrl();
 
-	abstract protected function getFieldKey() {}
+	abstract protected function getFieldKey();
 
-	abstract protected function getFieldName() {}
+	abstract protected function getFieldName();
 
 	public function shouldUseStorage() {
 		return false;
