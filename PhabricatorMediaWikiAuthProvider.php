@@ -267,8 +267,9 @@ final class PhabricatorMediaWikiAuthProvider extends PhabricatorOAuth1AuthProvid
 					->setValue( $values[self::PROPERTY_CONSUMER_KEY] )
 			)
 			->appendChild(
-				id( new AphrontFormTextControl() )
+				id( new AphrontFormPasswordControl() )
 					->setLabel( pht( 'Secret Key' ) )
+					->setDisableAutocomplete( true )
 					->setName( self::PROPERTY_CONSUMER_SECRET )
 					->setValue( $values[self::PROPERTY_CONSUMER_SECRET] )
 			);
