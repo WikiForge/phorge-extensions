@@ -14,7 +14,13 @@ final class MediaWikiUserpageCustomField extends PhabricatorUserCustomField {
 	}
 
 	public function getFieldName() {
-		return pht( "WikiForge User" );
+		$account = $this->getExternalAccount();
+		$uri = $account->getAccountURI()
+		if ( strpos( $uri, 'wikitide.org' ) !== false ) {
+			return pht( 'WikiTide User' );
+		}
+
+		return pht( 'WikiForge User' );
 	}
 
 	public function getFieldValue() {
@@ -59,31 +65,40 @@ final class MediaWikiUserpageCustomField extends PhabricatorUserCustomField {
 
 	public function renderPropertyViewValue( array $handles ) {
 		$account = $this->getExternalAccount();
+		$uri = $account->getAccountURI()
 
-		if ( !$account || !strlen( $account->getAccountURI() ) ) {
+		if ( !$account || !strlen( $uri ) ) {
 			return pht( 'Unknown' );
 		} else {
-			$userpage_uri = urldecode( $account->getAccountURI() );
+			$userpage_uri = urldecode( $uri );
 		}
 
 		// Split on the User: part of the userpage uri
 		$name = explode( 'User:', $userpage_uri );
+
 		// grab the part after User:
 		$rawname = array_pop( $name );
 		// decode for display:
 		$name = urldecode( rawurldecode( $rawname ) );
-		$accounts_uri = [ 'href' =>
-				"https://meta.wikiforge.net/wiki/Special:CentralAuth/" .
-				$rawname ];
-		$accounts_text = pht( 'Global Accounts' );
 		$userpage_uri = [ 'href' => $userpage_uri ];
 
-		return phutil_tag( 'span', [], [
-			phutil_tag( 'a', $userpage_uri, $name ),
-			' [ ',
-			phutil_tag( 'a', $accounts_uri, $accounts_text ),
-			' ]'
-		] );
+		$global_accounts = [];
+		if ( strpos( $uri, 'wikitide.org' ) !== false ) {
+			$accounts_uri = [ 'href' =>
+					"https://meta.wikitide.org/wiki/Special:CentralAuth/" .
+					$rawname ];
+			$accounts_text = pht( 'Global Accounts' );
+			$global_accounts = [
+				' [ ',
+				phutil_tag( 'a', $accounts_uri, $accounts_text ),
+				' ]'
+			];
+
+		}
+
+		return phutil_tag( 'span', [], array_merge( [
+			phutil_tag( 'a', $userpage_uri, $name )
+		], $global_accounts ) );
 	}
 
 	public function shouldAppearInApplicationSearch() {
