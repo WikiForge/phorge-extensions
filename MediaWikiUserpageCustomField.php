@@ -15,7 +15,7 @@ final class MediaWikiUserpageCustomField extends PhabricatorUserCustomField {
 
 	public function getFieldName() {
 		$account = $this->getExternalAccount();
-		$uri = $account->getAccountURI()
+		$uri = $account->getAccountURI();
 		if ( strpos( $uri, 'wikitide.org' ) !== false ) {
 			return pht( 'WikiTide User' );
 		}
@@ -65,7 +65,7 @@ final class MediaWikiUserpageCustomField extends PhabricatorUserCustomField {
 
 	public function renderPropertyViewValue( array $handles ) {
 		$account = $this->getExternalAccount();
-		$uri = $account->getAccountURI()
+		$uri = $account->getAccountURI();
 
 		if ( !$account || !strlen( $uri ) ) {
 			return pht( 'Unknown' );
