@@ -15,9 +15,11 @@ final class MediaWikiUserpageCustomField extends PhabricatorUserCustomField {
 
 	public function getFieldName() {
 		$account = $this->getExternalAccount();
-		$uri = $account->getAccountURI();
-		if ( strpos( $uri, 'wikitide.org' ) !== false ) {
-			return pht( 'WikiTide User' );
+		if ( $account !== null ) {
+			$uri = $account->getAccountURI();
+			if ( strpos( $uri, 'wikitide.org' ) !== false ) {
+				return pht( 'WikiTide User' );
+			}
 		}
 
 		return pht( 'WikiForge User' );
