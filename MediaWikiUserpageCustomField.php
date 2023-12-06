@@ -69,7 +69,7 @@ final class MediaWikiUserpageCustomField extends PhabricatorUserCustomField {
 		$account = $this->getExternalAccount();
 
 		if ( $account === null ) {
-			return pht( 'Unknown' );
+			return;
 		}
 
 		$uri = $account->getAccountURI();
