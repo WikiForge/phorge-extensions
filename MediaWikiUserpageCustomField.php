@@ -20,9 +20,9 @@ final class MediaWikiUserpageCustomField extends PhabricatorUserCustomField {
 			if ( strpos( $uri, 'wikitide.org' ) !== false ) {
 				return pht( 'WikiTide User' );
 			}
-		}
 
-		return pht( 'WikiForge User' );
+			return pht( 'WikiForge User' );
+		}
 	}
 
 	public function getFieldValue() {
