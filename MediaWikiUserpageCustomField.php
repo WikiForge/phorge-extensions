@@ -67,6 +67,11 @@ final class MediaWikiUserpageCustomField extends PhabricatorUserCustomField {
 
 	public function renderPropertyViewValue( array $handles ) {
 		$account = $this->getExternalAccount();
+
+		if ( $account === null ) {
+			return pht( 'Unknown' );
+		}
+
 		$uri = $account->getAccountURI();
 
 		if ( !$account || !strlen( $uri ) ) {
